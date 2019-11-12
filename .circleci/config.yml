@@ -6,8 +6,8 @@ references:
         - master
 jobs:
   test:
-#    docker:
-#      - image: circleci/python:3.6.1
+    docker:
+      - image: circleci/python:3.6.1
     working_directory: ~/django-graphql
     steps:
       - checkout
@@ -24,21 +24,21 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "mdjango-graphqlpc/requirements.txt" }}
+          key: v1-dependencies-{{ checksum "django-graphql/requirements.txt" }}
       - run:
           name: run tests
           command: |
             . venv/bin/activate
-            python hackernews/manage.py test
+            python django-graphql/hackernews/manage.py test
       - store_artifacts:
           path: test-reports
           destination: test-reports
-  build:
-    machine:
-      docker_layer_caching: true
-    steps:
-      - checkout
-      - run: docker build -t mck/hackernews:$CIRCLE_BRANCH .
+#  build:
+#    machine:
+#      docker_layer_caching: true
+#    steps:
+#      - checkout
+#      - run: docker build -t mck/hackernews:$CIRCLE_BRANCH .
 workflows:
   version: 2
   create_server_image:
