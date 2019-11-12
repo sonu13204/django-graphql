@@ -1,0 +1,53 @@
+version: 2
+​
+references:
+  branch_filter: &branch_filter
+    branches:
+      only:
+        - master
+jobs:
+  test:
+#    docker:
+#      - image: circleci/python:3.6.1
+    working_directory: ~/django-graphql
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "django-graphql/requirements.txt" }}
+            - v1-dependencies-
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r django-graphql/requirements.txt
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "mdjango-graphqlpc/requirements.txt" }}
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            python hackernews/manage.py test
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+  build:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run: docker build -t mck/hackernews:$CIRCLE_BRANCH .
+​
+​
+workflows:
+  version: 2
+  create_server_image:
+     jobs:
+      - test
+      - build:
+          filters: *branch_filter
+          requires:
+            - test
