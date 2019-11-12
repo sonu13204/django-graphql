@@ -1,0 +1,22 @@
+# dependencies
+
+# testing
+coverage/
+code_test.py
+
+# Global
+.DS_Store
+db.sqlite3
+media/
+__pycache__/
+*.pyc
+.idea/
+venv/
+
+#Frontend
+.env
+build/
+node_modules/
+package-lock.json
+yarn.lock
+
