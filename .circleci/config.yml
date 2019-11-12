@@ -1,5 +1,4 @@
 version: 2
-​
 references:
   branch_filter: &branch_filter
     branches:
@@ -40,8 +39,6 @@ jobs:
     steps:
       - checkout
       - run: docker build -t mck/hackernews:$CIRCLE_BRANCH .
-​
-​
 workflows:
   version: 2
   create_server_image:
