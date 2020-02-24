@@ -44,7 +44,7 @@ workflows:
   create_server_image:
      jobs:
       - test
-      - build:
-          filters: *branch_filter
-          requires:
-            - test
+#      - build:
+#          filters: *branch_filter
+#          requires:
+#            - test
