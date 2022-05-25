@@ -10,7 +10,7 @@ graphql-core==2.2.1
 graphql-relay==2.0.0
 idna==2.8
 promise==2.2.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 pytz==2019.3
 requests==2.22.0
 rollbar==0.14.7
